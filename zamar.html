@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengulangan Angka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .result-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .result-item.ti {
+            background: #e3f2fd;
+            color: #1565c0;
+            font-weight: 600;
+        }
+        
+        .result-item.unindra {
+            background: #f3e5f5;
+            color: #6a1b9a;
+            font-weight: 600;
+        }
+        
+        .result-item.web {
+            background: #fff3e0;
+            color: #e65100;
+            font-weight: 600;
+        }
+        
+        .info {
+            background: #e8eaf6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .info ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .info li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Form Pengulangan Angka</h1>
+        
+        <div class="info">
+            <strong>Ketentuan:</strong>
+            <ul>
+                <li>Jika angka habis dibagi 15 → <strong>WEB</strong></li>
+                <li>Jika angka habis dibagi 3 → <strong>TI</strong></li>
+                <li>Jika angka habis dibagi 5 → <strong>Unindra</strong></li>
+                <li>Jika tidak memenuhi ketentuan → <strong>Angka itu sendiri</strong></li>
+            </ul>
+        </div>
+        
+        <div class="form-group">
+            <label for="angka">Masukkan Nilai Angka:</label>
+            <input type="number" id="angka" min="1" placeholder="Contoh: 20" required>
+        </div>
+        
+        <button onclick="prosesAngka()">Proses Pengulangan</button>
+        
+        <div class="result" id="result">
+            <h2>Hasil Pengulangan:</h2>
+            <div id="output"></div>
+        </div>
+    </div>
+    
+    <script>
+        function prosesAngka() {
+            const angka = parseInt(document.getElementById('angka').value);
+            const resultDiv = document.getElementById('result');
+            const outputDiv = document.getElementById('output');
+            
+            if (isNaN(angka) || angka < 1) {
+                alert('Silakan masukkan angka yang valid (minimal 1)');
+                return;
+            }
+            
+            outputDiv.innerHTML = '';
+            
+            for (let i = 1; i <= angka; i++) {
+                let hasil = '';
+                let className = '';
+                
+                if (i % 15 === 0) {
+                    hasil = 'WEB';
+                    className = 'web';
+                } else if (i % 3 === 0) {
+                    hasil = 'TI';
+                    className = 'ti';
+                } else if (i % 5 === 0) {
+                    hasil = 'Unindra';
+                    className = 'unindra';
+                } else {
+                    hasil = i;
+                    className = '';
+                }
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'result-item ' + className;
+                itemDiv.textContent = i + ' → ' + hasil;
+                outputDiv.appendChild(itemDiv);
+            }
+            
+            resultDiv.classList.add('show');
+        }
+        
+        document.getElementById('angka').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                prosesAngka();
+            }
+        });
+    </script>
+</body>
+</html>
